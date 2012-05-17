@@ -3,3 +3,5 @@ obj
 packages
 *.suo
 *resharper*
+build
+binaries
