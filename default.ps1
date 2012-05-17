@@ -20,7 +20,11 @@ include $toolsDir\psake\buildutils.ps1
 
 task default -depends ReleaseOAuth
 
-task Init {
+task Clean {
+	delete-directory $binariesDir
+}
+
+task Init -depends Clean {
 	create-directory $binariesDir
 }
 
