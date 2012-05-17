@@ -35,7 +35,7 @@ task Init -depends Clean {
 }
 
 task InstallDependentPackages {
-	cd "$baseDir\packages"
+	cd "$sourceDir\packages"
 	$files =  dir -Exclude *.config
 	cd $baseDir
 	$installDependentPackages = $DownloadDependentPackages;
