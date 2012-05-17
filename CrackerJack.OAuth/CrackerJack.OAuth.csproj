@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FC4244BA-992C-46CF-926F-B4B777363428}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CrackerJack.OAuth</RootNamespace>
+    <AssemblyName>CrackerJack.OAuth</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputPath>bin\Release\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.4.5.5\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Authorization\AuthorizationCodeAuthorizer.cs" />
+    <Compile Include="Authorization\ClientCredentialsTokenRequestAuthorizer.cs" />
+    <Compile Include="Authorization\IAuthorizeAuthorizationRequest.cs" />
+    <Compile Include="Authorization\IAuthorizeResourceRequest.cs" />
+    <Compile Include="Authorization\PasswordTokenRequestAuthorizer.cs" />
+    <Compile Include="Authorization\RefreshTokenRequestAuthorizer.cs" />
+    <Compile Include="Authorization\ResourceRequestAuthorizer.cs" />
+    <Compile Include="Authorization\Token.cs" />
+    <Compile Include="Base65Encoding.cs" />
+    <Compile Include="EncodingExtensions.cs" />
+    <Compile Include="Encryption.cs" />
+    <Compile Include="ErrorCode.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="GrantType.cs" />
+    <Compile Include="Authorization\IAuthorizeTokenRequest.cs" />
+    <Compile Include="IConfiguration.cs" />
+    <Compile Include="IConsumer.cs" />
+    <Compile Include="IOAuthMessage.cs" />
+    <Compile Include="Issuer\OAuthIssuer.cs" />
+    <Compile Include="Issuer\TokenData.cs" />
+    <Compile Include="Regexs.cs" />
+    <Compile Include="Repository\IConsumerRepository.cs" />
+    <Compile Include="IOAuthServiceLocator.cs" />
+    <Compile Include="Issuer\IOAuthIssuer.cs" />
+    <Compile Include="OAuthUtils.cs" />
+    <Compile Include="OAuthException.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\IResourceOwnerRepository.cs" />
+    <Compile Include="Request\AuthorizationRequest.cs" />
+    <Compile Include="HttpBasicAuthenticationScheme.cs" />
+    <Compile Include="Request\IOAuthRequest.cs" />
+    <Compile Include="Request\ResourceRequest.cs" />
+    <Compile Include="Request\TokenRequest.cs" />
+    <Compile Include="Request\OAuthRequest.cs" />
+    <Compile Include="Request\OAuthRequestBase.cs" />
+    <Compile Include="OAuthTokens.cs" />
+    <Compile Include="IResourceOwner.cs" />
+    <Compile Include="Request\RequestBuilder.cs" />
+    <Compile Include="ResponseType.cs" />
+    <Compile Include="Response\ErrorResponseBuilder.cs" />
+    <Compile Include="Response\ResponseBuilderBase.cs" />
+    <Compile Include="Response\OAuthResponse.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IOAuthMessageWriter.cs" />
+    <Compile Include="MessageWriters\JsonOAuthMessageWriter.cs" />
+    <Compile Include="Response\ResponseBuilder.cs" />
+    <Compile Include="MessageWriters\QueryStringOAuthMessageWriter.cs" />
+    <Compile Include="MessageWriters\UrlEncodedBodyOAuthMessageWriter.cs" />
+    <Compile Include="Validation\AuthorizationCodeRequestValidator.cs" />
+    <Compile Include="Validation\AuthorizationRequestValidator.cs" />
+    <Compile Include="Validation\ClientCredentialsRequestValidator.cs" />
+    <Compile Include="Validation\IRequestValidator.cs" />
+    <Compile Include="Validation\PasswordRequestValidator.cs" />
+    <Compile Include="Validation\RefreshTokenRequestValidator.cs" />
+    <Compile Include="Validation\ResourceRequestValidator.cs" />
+    <Compile Include="Validation\ValidationResult.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
