@@ -1,10 +1,15 @@
 ﻿properties {
 	$TargetFramework = "net-4.0"
 	$DownloadDependentPackages = $true
+	$UploadPackage = $false
+	$NugetKey = ""
 }
 
 $baseDir  = resolve-path .
+$releaseRoot = "$baseDir\Release"
+$releaseDir = "$releaseRoot\net40"
 $buildBase = "$baseDir\build"
+$sourceDir = "$baseDir\src"
 $outDir =  "$buildBase\output"
 $toolsDir = "$baseDir\tools"
 $binariesDir = "$baseDir\binaries"
@@ -15,6 +20,7 @@ $script:isEnvironmentInitialized = $false
 $script:ilmergeTargetFramework = ""
 $script:msBuildTargetFramework = ""	
 $ilMergeKey = "$srcDir\NServiceBus.snk"
+$script:packageVersion = "1.0.0"
 
 include $toolsDir\psake\buildutils.ps1
 
@@ -73,21 +79,61 @@ task InitEnvironment{
 }
  
 task CompileMain -depends InstallDependentPackages, InitEnvironment, Init {
- 	$solutionFile = "$baseDir\OAuth.sln"
+ 	$solutionFile = "$sourceDir\OAuth.sln"
 	exec { &$script:msBuild $solutionFile /p:OutDir="$buildBase\" }
 	
 	$assemblies = @()
 	$assemblies  +=  dir $buildBase\*.dll -Exclude **Tests.dll
 
 	#& $ilMergeTool $ilMergeKey $outDir "NServiceBus" $assemblies "" "dll" $script:ilmergeTargetFramework "$buildBase\NServiceBusMergeLog.txt" $ilMergeExclude
-	& $ilMergeTool /lib:$baseDir /t:library /out:"$binariesDir\CrackerJack.dll" /targetplatform:$script:ilmergeTargetFramework /log:"$buildBase\MergeLog.txt" $assemblies
+	& $ilMergeTool /lib:$baseDir /t:library /out:"$binariesDir\CrackerJack.OAuth.dll" /targetplatform:$script:ilmergeTargetFramework /log:"$buildBase\MergeLog.txt" $assemblies
 	#"CrackerJack.OAuth" $assemblies "" "dll" $script:ilmergeTargetFramework "$buildBase\MergeLog.txt"
 	$mergeLogContent = Get-Content "$buildBase\MergeLog.txt"
 	echo "------------------------------Merge Log-----------------------"
 	echo $mergeLogContent
  }
+
+task PrepareRelease -depends CompileMain {
+	
+	if((Test-Path $releaseRoot) -eq $true){
+		Delete-Directory $releaseRoot	
+	}
+	
+	Create-Directory $releaseRoot
+	if ($TargetFramework -eq "net-4.0"){
+		$releaseDir = "$releaseRoot\net40"
+	}
+	Create-Directory $releaseDir
+	
+	Copy-Item -Force -Recurse "$baseDir\binaries" $releaseDir\binaries -ErrorAction SilentlyContinue  
+}
  
-task ReleaseOAuth -depends CompileMain {
+task CreatePackages -depends PrepareRelease  {
+
+	if(($UploadPackage) -and ($NugetKey -eq "")){
+		throw "Could not find the NuGet access key Package Cannot be uploaded without access key"
+	}
+		
+	import-module $toolsDir\NuGet\packit.psm1
+	Write-Output "Loading the module for packing.............."
+	$packit.push_to_nuget = $UploadPackage 
+	$packit.nugetKey  = $NugetKey
+	
+	$packit.framework_Isolated_Binaries_Loc = "$baseDir\release"
+	$packit.PackagingArtifactsRoot = "$baseDir\release\PackagingArtifacts"
+	$packit.packageOutPutDir = "$baseDir\release\packages"
+	$packit.targeted_Frameworks = "net40";
+
+	#region Packing NServiceBus
+	$packageName = "CrackerJack.OAuth"
+	$packit.package_description = "OAuth 2 Provider"
+	invoke-packit $packageName $script:packageVersion @{log4net="[2.0.0]"} "binaries\CrackerJack.OAuth.dll" @{} 
+	#endregion
+		
+	remove-module packit
+ } 
+
+task ReleaseOAuth -depends CreatePackages {
  
  }
 
