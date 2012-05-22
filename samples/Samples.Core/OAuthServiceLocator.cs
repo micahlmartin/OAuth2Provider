@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Providers.Entities;
 using CrackerJack.OAuth;
 using CrackerJack.OAuth.Issuer;
 using CrackerJack.OAuth.Repository;
 
-namespace MVC3Sample
+namespace Samples.Core
 {
     public class OAuthServiceLocator : IOAuthServiceLocator
     {

@@ -113,7 +113,6 @@
     <Compile Include="Controllers\SecureController.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="OAuthResult.cs" />
-    <Compile Include="Repositories.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OAuthController.cs" />
@@ -121,7 +120,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="OAuthServiceLocator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -197,6 +195,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Samples.Core\Samples.Core.csproj">
+      <Project>{06c23bea-1a09-4fb6-9766-5e474e7b32b1}</Project>
+      <Name>Samples.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
