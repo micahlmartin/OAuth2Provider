@@ -1,0 +1,110 @@
+﻿@using CrackerJack.OAuth
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<h2>@ViewBag.Message</h2>
+
+@using (Html.BeginForm()) {
+    <div style="widows: 100%; overflow: hidden">
+        <fieldset style="float:left">
+            <legend>Consumer Information</legend>
+
+            <div class="editor-label">
+                Consumer Id
+            </div>
+            <div class="editor-field">
+                @ViewBag.Consumer.ConsumerId
+            </div>
+
+            <div class="editor-label">
+                Application Name
+            </div>
+            <div class="editor-field">
+                @ViewBag.Consumer.ApplicationName
+            </div>
+
+            <div class="editor-label">
+                Client Id
+            </div>
+            <div class="editor-field">
+                @ViewBag.Consumer.ClientId
+            </div>
+
+            <div class="editor-label">
+                Secret
+            </div>
+            <div class="editor-field">
+                @ViewBag.Consumer.Secret
+            </div>
+
+        </fieldset>
+
+        <fieldset style="float:left; margin-left: 20px">
+            <legend>OAuth Details</legend>
+
+            <div class="editor-label">
+                <a id="token-request" href="#token-request">Request Authorization</a>
+            </div>
+
+            <div class="editor-label">
+                Access Token
+            </div>
+            <div class="editor-field">
+                <p id="access-token"></p>
+            </div>
+
+            <div class="editor-label">
+                Expires In
+            </div>
+            <div class="editor-field">
+                <p id="expires-in"></p>
+            </div>
+
+        </fieldset>
+
+        <fieldset style="float:left; margin-left: 20px">
+            <legend>Resource Owner Details</legend>
+
+            <div class="editor-label">
+                <a id="resource-request" href="#resource-request">Request Authorization</a>
+            </div>
+
+            <div class="editor-label">
+                Username
+            </div>
+            <div class="editor-field">
+                <p id="username"></p>
+            </div>
+
+        </fieldset>
+    </div>
+    
+    <script type="text/javascript">
+        var clientId = "@ViewBag.Consumer.ClientId";
+        var secret = "@ViewBag.Consumer.Secret";
+
+        var oauthToken;
+
+        $("#token-request").click(function() {
+            $.post("/OAuth/token", { grant_type: "@GrantType.ClientCredentials", @OAuthTokens.ClientId : clientId, @OAuthTokens.ClientSecret : secret }, function(resp) {
+                $("#access-token").text(resp.access_token);
+                $("#expires-in").text(resp.expires_in);
+                oauthToken = resp.access_token;
+            });
+
+            return false;
+    });
+
+        $("#resource-request").click(function() {
+            $.get("/secure?id=1", { @OAuthTokens.AccessToken : oauthToken }, function(resp) {
+                $("#username").text(resp.Username);
+            });
+
+            return false;
+        });
+
+    </script>
+    
+    
+}

@@ -10,18 +10,12 @@ namespace CrackerJack.OAuth.Authorization
 {
     public class AuthorizationCodeAuthorizer : IAuthorizeTokenRequest
     {
-        private readonly IConsumerRepository _consumerRepository;
-        private readonly IResourceOwnerRepository _resourceOwnerRepository;
         private readonly IOAuthIssuer _issuer;
         private readonly IConfiguration _configuration;
         private readonly ILog _logger = LogManager.GetLogger(typeof(AuthorizationCodeAuthorizer));
 
-        public AuthorizationCodeAuthorizer(IConsumerRepository consumerRepository,
-                                           IResourceOwnerRepository resourceOwnerRepository, IOAuthIssuer issuer,
-                                           IConfiguration configuration)
+        public AuthorizationCodeAuthorizer(IOAuthIssuer issuer, IConfiguration configuration)
         {
-            _consumerRepository = consumerRepository;
-            _resourceOwnerRepository = resourceOwnerRepository;
             _issuer = issuer;
             _configuration = configuration;
         }

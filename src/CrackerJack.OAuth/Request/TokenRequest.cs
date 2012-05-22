@@ -49,7 +49,7 @@ namespace CrackerJack.OAuth.Request
                     authorizer = new PasswordTokenRequestAuthorizer(ServiceLocator.ConsumerRepository, ServiceLocator.ResourceOwnerRepository, ServiceLocator.Issuer, ServiceLocator.Configuration);
                     break;
                 case OAuth.GrantType.AuthorizationCode:
-                    authorizer = new AuthorizationCodeAuthorizer(ServiceLocator.ConsumerRepository, ServiceLocator.ResourceOwnerRepository, ServiceLocator.Issuer, ServiceLocator.Configuration);
+                    authorizer = new AuthorizationCodeAuthorizer(ServiceLocator.Issuer, ServiceLocator.Configuration);
                     break;
                 case OAuth.GrantType.ClientCredentials:
                     authorizer = new ClientCredentialsTokenRequestAuthorizer(ServiceLocator);
