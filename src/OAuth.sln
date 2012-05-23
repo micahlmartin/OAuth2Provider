@@ -1,7 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 11
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrackerJack.OAuth", "CrackerJack.OAuth\CrackerJack.OAuth.csproj", "{FC4244BA-992C-46CF-926F-B4B777363428}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OAuth2Provider", "OAuth2Provider\OAuth2Provider.csproj", "{FC4244BA-992C-46CF-926F-B4B777363428}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OAuth2Provider.Tests", "OAuth2Provider.Tests\OAuth2Provider.Tests.csproj", "{4593774A-0C78-444B-A99F-3327038F6D4D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,6 +24,36 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4593774A-0C78-444B-A99F-3327038F6D4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4593774A-0C78-444B-A99F-3327038F6D4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4593774A-0C78-444B-A99F-3327038F6D4D}.Debug|x64.ActiveCfg = Debug|x64
+		{4593774A-0C78-444B-A99F-3327038F6D4D}.Debug|x64.Build.0 = Debug|x64
+		{4593774A-0C78-444B-A99F-3327038F6D4D}.Debug|x86.ActiveCfg = Debug|x86
+		{4593774A-0C78-444B-A99F-3327038F6D4D}.Debug|x86.Build.0 = Debug|x86
+		{4593774A-0C78-444B-A99F-3327038F6D4D}.Mixed Platforms|Any CPU.ActiveCfg = Mixed Platforms|Any CPU
+		{4593774A-0C78-444B-A99F-3327038F6D4D}.Mixed Platforms|Any CPU.Build.0 = Mixed Platforms|Any CPU
+		{4593774A-0C78-444B-A99F-3327038F6D4D}.Mixed Platforms|x64.ActiveCfg = Mixed Platforms|x64
+		{4593774A-0C78-444B-A99F-3327038F6D4D}.Mixed Platforms|x64.Build.0 = Mixed Platforms|x64
+		{4593774A-0C78-444B-A99F-3327038F6D4D}.Mixed Platforms|x86.ActiveCfg = Mixed Platforms|x86
+		{4593774A-0C78-444B-A99F-3327038F6D4D}.Mixed Platforms|x86.Build.0 = Mixed Platforms|x86
+		{4593774A-0C78-444B-A99F-3327038F6D4D}.Production|Any CPU.ActiveCfg = Production|Any CPU
+		{4593774A-0C78-444B-A99F-3327038F6D4D}.Production|Any CPU.Build.0 = Production|Any CPU
+		{4593774A-0C78-444B-A99F-3327038F6D4D}.Production|x64.ActiveCfg = Production|x64
+		{4593774A-0C78-444B-A99F-3327038F6D4D}.Production|x64.Build.0 = Production|x64
+		{4593774A-0C78-444B-A99F-3327038F6D4D}.Production|x86.ActiveCfg = Production|x86
+		{4593774A-0C78-444B-A99F-3327038F6D4D}.Production|x86.Build.0 = Production|x86
+		{4593774A-0C78-444B-A99F-3327038F6D4D}.QA|Any CPU.ActiveCfg = QA|Any CPU
+		{4593774A-0C78-444B-A99F-3327038F6D4D}.QA|Any CPU.Build.0 = QA|Any CPU
+		{4593774A-0C78-444B-A99F-3327038F6D4D}.QA|x64.ActiveCfg = QA|x64
+		{4593774A-0C78-444B-A99F-3327038F6D4D}.QA|x64.Build.0 = QA|x64
+		{4593774A-0C78-444B-A99F-3327038F6D4D}.QA|x86.ActiveCfg = QA|x86
+		{4593774A-0C78-444B-A99F-3327038F6D4D}.QA|x86.Build.0 = QA|x86
+		{4593774A-0C78-444B-A99F-3327038F6D4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4593774A-0C78-444B-A99F-3327038F6D4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4593774A-0C78-444B-A99F-3327038F6D4D}.Release|x64.ActiveCfg = Release|x64
+		{4593774A-0C78-444B-A99F-3327038F6D4D}.Release|x64.Build.0 = Release|x64
+		{4593774A-0C78-444B-A99F-3327038F6D4D}.Release|x86.ActiveCfg = Release|x86
+		{4593774A-0C78-444B-A99F-3327038F6D4D}.Release|x86.Build.0 = Release|x86
 		{FC4244BA-992C-46CF-926F-B4B777363428}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FC4244BA-992C-46CF-926F-B4B777363428}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC4244BA-992C-46CF-926F-B4B777363428}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -45,5 +77,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35
 	EndGlobalSection
 EndGlobal

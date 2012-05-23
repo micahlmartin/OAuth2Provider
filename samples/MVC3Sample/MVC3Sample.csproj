@@ -112,7 +112,6 @@
   <ItemGroup>
     <Compile Include="Controllers\SecureController.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="OAuthResult.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OAuthController.cs" />
@@ -120,6 +119,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="OAuthResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
