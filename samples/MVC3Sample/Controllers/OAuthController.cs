@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using CrackerJack.OAuth;
-using CrackerJack.OAuth.Request;
-using CrackerJack.OAuth.Response;
+using OAuth2Provider;
+using OAuth2Provider.Request;
+using OAuth2Provider.Response;
 
 namespace MVC3Sample.Controllers
 {
@@ -18,7 +18,7 @@ namespace MVC3Sample.Controllers
         {
             try
             {
-                var oauthRequest = new TokenRequest(Request, MvcApplication.ServiceLocator);
+                var oauthRequest = new TokenRequest(new HttpRequestBaseRequest(Request), MvcApplication.ServiceLocator);
 
                 var token = oauthRequest.Authorize();
 

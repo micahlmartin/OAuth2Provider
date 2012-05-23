@@ -43,20 +43,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CrackerJack.OAuth">
-      <HintPath>..\..\binaries\CrackerJack.OAuth.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.4.1.10331.0\lib\net40\EntityFramework.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="NuGet.Core, Version=1.0.11220.104, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Nuget.Core.1.0.1120.104\lib\net40\NuGet.Core.dll</HintPath>
+    <Reference Include="OAuth2Provider">
+      <HintPath>..\..\binaries\OAuth2Provider.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -198,7 +191,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Samples.Core\Samples.Core.csproj">
-      <Project>{06c23bea-1a09-4fb6-9766-5e474e7b32b1}</Project>
+      <Project>{06C23BEA-1A09-4FB6-9766-5E474E7B32B1}</Project>
       <Name>Samples.Core</Name>
     </ProjectReference>
   </ItemGroup>

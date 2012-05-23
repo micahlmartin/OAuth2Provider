@@ -43,9 +43,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CrackerJack.OAuth">
-      <HintPath>..\..\binaries\CrackerJack.OAuth.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.4.1.10331.0\lib\net40\EntityFramework.dll</HintPath>
     </Reference>

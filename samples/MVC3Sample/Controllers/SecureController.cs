@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using CrackerJack.OAuth;
-using CrackerJack.OAuth.Issuer;
-using CrackerJack.OAuth.Request;
+using OAuth2Provider;
+using OAuth2Provider.Issuer;
+using OAuth2Provider.Request;
 
 namespace MVC3Sample.Controllers
 {
@@ -41,7 +41,7 @@ namespace MVC3Sample.Controllers
 
             try
             {
-                var resourceRequest = new ResourceRequest(Request, _serviceLocator);
+                var resourceRequest = new ResourceRequest(new HttpRequestBaseRequest(Request), _serviceLocator);
                 isAuthorized = resourceRequest.Authorize();
 
                 TokenData = _serviceLocator.Issuer.DecodeAccessToken(resourceRequest.AccessToken);

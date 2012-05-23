@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using CrackerJack.OAuth;
-using CrackerJack.OAuth.Issuer;
-using CrackerJack.OAuth.Repository;
+using OAuth2Provider;
+using OAuth2Provider.Issuer;
+using OAuth2Provider.Repository;
 
 namespace Samples.Core
 {

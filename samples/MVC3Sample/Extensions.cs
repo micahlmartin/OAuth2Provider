@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using CrackerJack.OAuth.Response;
+using OAuth2Provider.Response;
 
 namespace MVC3Sample
 {

@@ -30,8 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CrackerJack.OAuth">
-      <HintPath>..\..\binaries\CrackerJack.OAuth.dll</HintPath>
+    <Reference Include="OAuth2Provider">
+      <HintPath>..\..\binaries\OAuth2Provider.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
