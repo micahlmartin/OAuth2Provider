@@ -27,7 +27,7 @@ include $toolsDir\psake\buildutils.ps1
 task default -depends ReleaseOAuth
 
 task Clean {
-	delete-directory $binariesDir
+	delete-directory $binariesDir -ErrorAction silentlycontinue
 }
 
 task Init -depends Clean {
@@ -82,15 +82,15 @@ task CompileMain -depends InstallDependentPackages, InitEnvironment, Init {
  	$solutionFile = "$sourceDir\OAuth.sln"
 	exec { &$script:msBuild $solutionFile /p:OutDir="$buildBase\" }
 	
-	$assemblies = @()
-	$assemblies  +=  dir $buildBase\*.dll -Exclude **Tests.dll
+	Copy-Item "$buildBase\OAuth2Provider.dll" $binariesDir
+	
+#	$assemblies = @()
+#	$assemblies  +=  dir $buildBase\*.dll -Exclude **Tests.dll
 
-	#& $ilMergeTool $ilMergeKey $outDir "NServiceBus" $assemblies "" "dll" $script:ilmergeTargetFramework "$buildBase\NServiceBusMergeLog.txt" $ilMergeExclude
-	& $ilMergeTool /lib:$baseDir /t:library /out:"$binariesDir\CrackerJack.OAuth.dll" /targetplatform:$script:ilmergeTargetFramework /log:"$buildBase\MergeLog.txt" $assemblies
-	#"CrackerJack.OAuth" $assemblies "" "dll" $script:ilmergeTargetFramework "$buildBase\MergeLog.txt"
-	$mergeLogContent = Get-Content "$buildBase\MergeLog.txt"
-	echo "------------------------------Merge Log-----------------------"
-	echo $mergeLogContent
+#	& $ilMergeTool /lib:$baseDir /t:library /out:"$binariesDir\OAuth2Provider.dll" /targetplatform:$script:ilmergeTargetFramework /log:"$buildBase\MergeLog.txt" $assemblies
+#	$mergeLogContent = Get-Content "$buildBase\MergeLog.txt"
+#	echo "------------------------------Merge Log-----------------------"
+#	echo $mergeLogContent
  }
 
 task PrepareRelease -depends CompileMain {
@@ -125,9 +125,9 @@ task CreatePackages -depends PrepareRelease  {
 	$packit.targeted_Frameworks = "net40";
 
 	#region Packing NServiceBus
-	$packageName = "CrackerJack.OAuth"
+	$packageName = "OAuth2Provider"
 	$packit.package_description = "OAuth 2 Provider"
-	invoke-packit $packageName $script:packageVersion @{log4net="[2.0.0]"} "binaries\CrackerJack.OAuth.dll" @{} 
+	invoke-packit $packageName $script:packageVersion @{log4net="[2.0.0]"; "Newtonsoft.Json"="[4.5.5]"} "binaries\OAuth2Provider.dll" @{} 
 	#endregion
 		
 	remove-module packit
