@@ -21,6 +21,8 @@ $script:ilmergeTargetFramework = ""
 $script:msBuildTargetFramework = ""	
 $ilMergeKey = "$srcDir\NServiceBus.snk"
 $script:packageVersion = "1.0.0"
+$nunitexec = "packages\NUnit.Runners.lite.2.6.0.12051\nunit-console.exe"
+$script:nunitTargetFramework = "/framework=4.0";
 
 include $toolsDir\psake\buildutils.ps1
 
@@ -35,7 +37,7 @@ task Init -depends Clean {
 }
 
 task InstallDependentPackages {
-	cd "$sourceDir\packages"
+	cd "$baseDir\packages"
 	$files =  dir -Exclude *.config
 	cd $baseDir
 	$installDependentPackages = $DownloadDependentPackages;
@@ -70,7 +72,7 @@ task InitEnvironment{
 			
 			$script:msBuildTargetFramework ="/p:TargetFrameworkVersion=v4.0 /ToolsVersion:4.0"
 			
-			#$script:nunitTargetFramework = "/framework=4.0";
+			$script:nunitTargetFramework = "/framework=4.0";
 			
 			$script:isEnvironmentInitialized = $true
 		}
@@ -83,17 +85,19 @@ task CompileMain -depends InstallDependentPackages, InitEnvironment, Init {
 	exec { &$script:msBuild $solutionFile /p:OutDir="$buildBase\" }
 	
 	Copy-Item "$buildBase\OAuth2Provider.dll" $binariesDir
-	
-#	$assemblies = @()
-#	$assemblies  +=  dir $buildBase\*.dll -Exclude **Tests.dll
-
-#	& $ilMergeTool /lib:$baseDir /t:library /out:"$binariesDir\OAuth2Provider.dll" /targetplatform:$script:ilmergeTargetFramework /log:"$buildBase\MergeLog.txt" $assemblies
-#	$mergeLogContent = Get-Content "$buildBase\MergeLog.txt"
-#	echo "------------------------------Merge Log-----------------------"
-#	echo $mergeLogContent
  }
+ 
+ task TestMain -depends CompileMain {
 
-task PrepareRelease -depends CompileMain {
+	if((Test-Path -Path $buildBase\test-reports) -eq $false){
+		Create-Directory $buildBase\test-reports 
+	}
+	$testAssemblies = @()
+	$testAssemblies +=  dir $buildBase\*Tests.dll
+	exec {&$nunitexec $testAssemblies $script:nunitTargetFramework}
+}
+
+task PrepareRelease -depends CompileMain, TestMain {
 	
 	if((Test-Path $releaseRoot) -eq $true){
 		Delete-Directory $releaseRoot	
