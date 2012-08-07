@@ -1,7 +1,6 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 using OAuth2Provider;
-using Samples.Core;
 
 namespace MVC3Sample
 {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Web;
 using OAuth2Provider.Validation;
 using log4net;
+using OAuth2Provider;
 
 namespace OAuth2Provider.Request
 {
@@ -41,33 +42,33 @@ namespace OAuth2Provider.Request
 
         public string GrantType
         {
-            get { return _request.Properties[OAuthTokens.GrantType]; }
+            get { return _request.Values.SafeGet(OAuthTokens.GrantType).FirstOrDefaultSafe(); }
         }
         public string Username
         {
-            get { return _request.Properties[OAuthTokens.Username]; }
+            get { return _request.Values.SafeGet(OAuthTokens.Username).FirstOrDefaultSafe(); }
         }
         public string Password
         {
-            get { return _request.Properties[OAuthTokens.Password]; }
+            get { return _request.Values.SafeGet(OAuthTokens.Password).FirstOrDefaultSafe(); }
         }
         public string Scope
         {
-            get { return _request.Properties[OAuthTokens.Scope]; }
+            get { return _request.Values.SafeGet(OAuthTokens.Scope).FirstOrDefaultSafe(); }
         }
         public string AccessToken
         {
             get
             {
-                var accessToken = _request.Properties[OAuthTokens.AccessToken];
+                var accessToken = _request.Values.SafeGet(OAuthTokens.AccessToken).FirstOrDefaultSafe();
                 if (!string.IsNullOrWhiteSpace(accessToken))
                     return accessToken;
 
-                accessToken = _request.Properties[OAuthTokens.OAuthToken];
+                accessToken = _request.Values.SafeGet(OAuthTokens.OAuthToken).FirstOrDefaultSafe();
                 if (!string.IsNullOrWhiteSpace(accessToken))
                     return accessToken;
 
-                var authHeader = _request.Headers[HeaderType.Authorization] + "";
+                var authHeader = _request.Headers.SafeGet(HeaderType.Authorization) + "";
                 if(authHeader.Contains("OAuth") || authHeader.Contains("Bearer"))
                     accessToken = authHeader.Replace("OAuth ", "").Replace("Bearer ", "").Trim();
 
@@ -76,33 +77,33 @@ namespace OAuth2Provider.Request
         }
         public string TokenType
         {
-            get { return _request.Properties[OAuthTokens.TokenType]; }
+            get { return _request.Values.SafeGet(OAuthTokens.TokenType).FirstOrDefaultSafe(); }
         }
         public string ExpiresIn
         {
-            get { return _request.Properties[OAuthTokens.ExpiresIn]; }
+            get { return _request.Values.SafeGet(OAuthTokens.ExpiresIn).FirstOrDefaultSafe(); }
         }
         public string RefreshToken
         {
-            get { return _request.Properties[OAuthTokens.RefreshToken]; }
+            get { return _request.Values.SafeGet(OAuthTokens.RefreshToken).FirstOrDefaultSafe(); }
         }
         public string ResponseType
         {
-            get { return _request.Properties[OAuthTokens.ResponseType]; }
+            get { return _request.Values.SafeGet(OAuthTokens.ResponseType).FirstOrDefaultSafe(); }
         }
         public string RedirectUri
         {
-            get { return _request.Properties[OAuthTokens.RedirectUri]; }
+            get { return _request.Values.SafeGet(OAuthTokens.RedirectUri).FirstOrDefaultSafe(); }
         }
         public string State
         {
-            get { return _request.Properties[OAuthTokens.State]; }
+            get { return _request.Values.SafeGet(OAuthTokens.State).FirstOrDefaultSafe(); }
         }
         public string ClientId
         {
             get
             {
-                var clientID = _request.Properties[OAuthTokens.ClientId];
+                var clientID = _request.Values.SafeGet(OAuthTokens.ClientId).FirstOrDefaultSafe();
                 if(!string.IsNullOrWhiteSpace(clientID))
                     return clientID;
 
@@ -114,7 +115,7 @@ namespace OAuth2Provider.Request
             get
             {
 
-                var clientID = _request.Properties[OAuthTokens.ClientSecret];
+                var clientID = _request.Values.SafeGet(OAuthTokens.ClientSecret).FirstOrDefaultSafe();
                 if (!string.IsNullOrWhiteSpace(clientID))
                     return clientID;
 
@@ -127,7 +128,7 @@ namespace OAuth2Provider.Request
         }
         public string AuthorizationCode
         {
-            get { return _request.Properties[OAuthTokens.Code]; }
+            get { return _request.Values.SafeGet(OAuthTokens.Code).FirstOrDefaultSafe(); }
         }
         public string Method
         {

@@ -41,7 +41,7 @@ namespace MVC3Sample.Controllers
 
             try
             {
-                var resourceRequest = new ResourceRequest(new HttpRequestBaseRequest(Request), _serviceLocator);
+                var resourceRequest = new ResourceRequest(new OAuth2Provider.Request.HttpRequest(Request), _serviceLocator);
                 isAuthorized = resourceRequest.Authorize();
 
                 TokenData = _serviceLocator.Issuer.DecodeAccessToken(resourceRequest.AccessToken);

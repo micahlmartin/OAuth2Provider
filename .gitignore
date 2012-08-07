@@ -9,3 +9,6 @@ release
 Upgradelog*
 _Upgrade*
 TestResult.xml
+*.mdf
+*.ldf
+*.user

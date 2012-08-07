@@ -18,7 +18,7 @@ namespace MVC3Sample.Controllers
         {
             try
             {
-                var oauthRequest = new TokenRequest(new HttpRequestBaseRequest(Request), MvcApplication.ServiceLocator);
+                var oauthRequest = new TokenRequest(new OAuth2Provider.Request.HttpRequest(Request), MvcApplication.ServiceLocator);
 
                 var token = oauthRequest.Authorize();
 

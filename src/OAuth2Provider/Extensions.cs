@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using OAuth2Provider.Request;
 using Newtonsoft.Json;
+using System.Collections;
 
 namespace OAuth2Provider
 {
@@ -24,6 +25,51 @@ namespace OAuth2Provider
         public static IDictionary<string, string> ToDictionary(this HttpCookieCollection cookies)
         {
             return cookies.Cast<HttpCookie>().ToDictionary(cookie => cookie.Name, cookie => cookie.Value);
+        }
+
+        public static T SafeGet<TKey, T>(this IDictionary<TKey, T> dictionary, TKey key)
+        {
+            if (dictionary.ContainsKey(key))
+                return dictionary[key];
+
+            return default(T);
+        }
+
+        public static T FirstOrDefaultSafe<T>(this IEnumerable<T> items)
+        {
+            if (items == null)
+                return default(T);
+
+            return items.FirstOrDefault();
+        }
+
+        public static void AddRange<T>(this IList<T> list, IEnumerable<T> items)
+        {
+            foreach (var item in items)
+                list.Add(item);
+        }
+
+        public static void AddRange<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, IEnumerable<KeyValuePair<TKey, TValue>> values)
+        {
+            foreach(var kvp in values)
+                dictionary.Add(kvp);
+        }
+
+        public static void SafeAddRange<TKey, TValue>(this IDictionary<TKey, IList<TValue>> dictionary, IEnumerable<KeyValuePair<TKey, IList<TValue>>> values)
+        {
+            foreach(var kvp in values)
+                dictionary.SafeAdd(kvp.Key, kvp.Value);
+        }
+
+        public static void SafeAdd<TKey, T>(this IDictionary<TKey, IList<T>> dictionary, TKey key, IList<T> items)
+        {
+            IList<T> existingItems = null;
+            dictionary.TryGetValue(key, out items);
+
+            if (existingItems == null)
+                existingItems = new List<T>();
+
+            existingItems.AddRange(items);
         }
 
         public static string ToQueryString(this NameValueCollection nvc)

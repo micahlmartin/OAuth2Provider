@@ -2,7 +2,7 @@
 $script:packit = @{}
 $script:packit.push_to_nuget = $false      # Set the variable to true to push the package to NuGet galary.
 
-$script:packit.default_package = "CrackerJack.OAuth"
+$script:packit.default_package = "OAuth2Provider"
 $script:packit.package_owners = "Micah Martin"
 $script:packit.package_authors = "Micah Martin"
 $script:packit.package_description = "OAuth 2 Provider"
@@ -14,12 +14,8 @@ $script:packit.package_requireLicenseAcceptance = $false;
 $script:packit.package_tags = "oauth"
 $script:packit.package_version = "1.0"
 $script:packit.package_iconUrl = "https://github.com/micahlmartin/OAuth2Provider"
-$script:packit.binaries_Location = ".\binaries"
-$script:packit.framework_Isolated_Binaries_Loc = ".\build\lib"
 $script:packit.targeted_Frameworks = "net35","net40"
-$script:packit.versionAssemblyName = $script:packit.binaries_Location + "\CrackerJack.OAuth.dll"
 $script:packit.packageOutPutDir = ".\packages"
-$script:packit.PackagingArtifactsRoot = ".\NuGet\PackagingArtifacts"
 $script:packit.nugetCommand = ".\tools\Nuget\NuGet.exe"
 $script:packit.nugetKey = ""
 

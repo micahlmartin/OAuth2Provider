@@ -37,13 +37,11 @@
     <OutputPath>bin\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
+    <Reference Include="log4net">
+      <HintPath>..\..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.4.5.5\lib\net40\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\packages\Newtonsoft.Json.4.5.8\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -57,6 +55,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\SharedAssemblyInfo.cs">
+      <Link>SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Authorization\AuthorizationCodeAuthorizer.cs" />
     <Compile Include="Authorization\ClientCredentialsTokenRequestAuthorizer.cs" />
     <Compile Include="Authorization\IAuthorizeAuthorizationRequest.cs" />
@@ -87,8 +88,8 @@
     <Compile Include="Repository\IResourceOwnerRepository.cs" />
     <Compile Include="Request\AuthorizationRequest.cs" />
     <Compile Include="HttpBasicAuthenticationScheme.cs" />
-    <Compile Include="Request\HttpRequestBaseRequest.cs" />
     <Compile Include="Request\IOAuthRequest.cs" />
+    <Compile Include="Request\HttpRequest.cs" />
     <Compile Include="Request\ResourceRequest.cs" />
     <Compile Include="Request\TokenRequest.cs" />
     <Compile Include="Request\OAuthRequest.cs" />

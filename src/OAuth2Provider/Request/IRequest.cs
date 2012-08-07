@@ -7,8 +7,8 @@ namespace OAuth2Provider.Request
 {
     public interface IRequest
     {
-        IDictionary<string,string> Properties { get; }
-        IDictionary<string, string> Headers { get; }
+        IDictionary<string, IList<string>> Values { get; }
+        IDictionary<string, IList<string>> Headers { get; }
         string ContentType { get; }
         string HttpMethod { get; }
         bool IsSecure { get; }

@@ -26,18 +26,18 @@ namespace OAuth2Provider.Tests.Request
         public void GetRedirectUrl()
         {
             var mocker = new AutoMoqer();
-            var properties = new Dictionary<string, string>
+            var properties = new Dictionary<string, IList<string>>
                                  {
-                                     {OAuthTokens.ResponseType, ResponseType.Code},
-                                     {OAuthTokens.ClientId, "1"},
-                                     {OAuthTokens.RedirectUri, "http://mydomain.com"}
+                                     {OAuthTokens.ResponseType, new[] {ResponseType.Code}},
+                                     {OAuthTokens.ClientId, new[]{"1"}},
+                                     {OAuthTokens.RedirectUri, new[]{"http://mydomain.com"}}
                                  };
-            mocker.GetMock<IRequest>().Setup(x => x.Properties).Returns(properties); 
+            mocker.GetMock<IRequest>().Setup(x => x.Values).Returns(properties); 
             var request = new AuthorizationRequest(mocker.GetMock<IRequest>().Object, mocker.GetMock<IOAuthServiceLocator>().Object);
 
             try
             {
-                properties[OAuthTokens.RedirectUri] = "http://wrong.com";
+                properties[OAuthTokens.RedirectUri] = new[] { "http://wrong.com" };
                 request.GetRedirectUri(new ConsumerImpl {Domain = "test.com"});
                 Assert.Fail("Exception not thrown");
             }
@@ -49,7 +49,7 @@ namespace OAuth2Provider.Tests.Request
 
             try
             {
-                properties[OAuthTokens.RedirectUri] = "wrong.com";
+                properties[OAuthTokens.RedirectUri] = new[] { "wrong.com" };
                 request.GetRedirectUri(new ConsumerImpl { Domain = "test.com" });
                 Assert.Fail("Exception not thrown");
             }
@@ -61,7 +61,7 @@ namespace OAuth2Provider.Tests.Request
 
             try
             {
-                properties[OAuthTokens.RedirectUri] = "/test.com/test";
+                properties[OAuthTokens.RedirectUri] = new[]{"/test.com/test"};
                 request.GetRedirectUri(new ConsumerImpl { Domain = "test.com" });
                 Assert.Fail("Exception not thrown");
             }
@@ -71,7 +71,7 @@ namespace OAuth2Provider.Tests.Request
                 Assert.IsTrue(ex.ErrorDescription.HasValue());
             }
 
-            properties[OAuthTokens.RedirectUri] = "http://test.com/response";
+            properties[OAuthTokens.RedirectUri] = new[] { "http://test.com/response" };
             var result = request.GetRedirectUri(new ConsumerImpl { Domain = "test.com" });
 
             Assert.AreEqual("http://test.com/response", result);
@@ -86,13 +86,13 @@ namespace OAuth2Provider.Tests.Request
         {
             var mocker = new AutoMoqer();
             mocker.MockServiceLocator();
-            var properties = new Dictionary<string, string>
+            var properties = new Dictionary<string, IList<string>>
                                  {
-                                     {OAuthTokens.ResponseType, ResponseType.Code},
-                                     {OAuthTokens.ClientId, "1"},
-                                     {OAuthTokens.RedirectUri, "http://mydomain.com"}
+                                     {OAuthTokens.ResponseType, new[]{ResponseType.Code}},
+                                     {OAuthTokens.ClientId, new[]{"1"}},
+                                     {OAuthTokens.RedirectUri, new[]{"http://mydomain.com"}}
                                  };
-            mocker.GetMock<IRequest>().Setup(x => x.Properties).Returns(properties);
+            mocker.GetMock<IRequest>().Setup(x => x.Values).Returns(properties);
             mocker.GetMock<IConfiguration>().Setup(x => x.AuthorizationTokenExpirationLength).Returns(500);
 
             mocker.GetMock<IOAuthServiceLocator>().Setup(x => x.Issuer).Returns(new OAuthIssuer());
