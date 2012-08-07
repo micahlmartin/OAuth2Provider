@@ -161,7 +161,7 @@ task CreatePackages -depends PrepareRelease  {
 
 	$packageName = "OAuth2Provider"
 	$packit.package_description = "OAuth 2 Provider"
-	invoke-packit $packageName $script:packageVersion @{} "binaries\OAuth2Provider.dll" @{} 
+	invoke-packit $packageName $script:packageVersion @{} @("binaries\OAuth2Provider.dll","binaries\OAuth2Provider.pdb") @{} 
 		
 	remove-module packit
  } 
