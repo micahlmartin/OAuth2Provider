@@ -67,7 +67,7 @@ task InstallDependentPackages {
 	}
  }
  
-task InitEnvironment -depends DetectOperatingSystemArchitecture {
+task InitEnvironment -depends DetectOperatingSystemArchitecture, GenerateAssemblyInfo {
 
 	if($script:isEnvironmentInitialized -ne $true){
 		if ($TargetFramework -eq "net-4.0"){
@@ -128,7 +128,7 @@ task CompileSamples -depends InstallDependentPackages, InitEnvironment, Init {
 	exec { &$script:msBuild $solutionFile }
  }
 
-task PrepareRelease -depends CompileMain, TestMain {
+task PrepareRelease {
 	
 	if((Test-Path $releaseRoot) -eq $true){
 		Delete-Directory $releaseRoot	
@@ -193,7 +193,6 @@ using System.Runtime.CompilerServices;
 	sc -Path "$baseDir\SharedAssemblyInfo.cs" -Value $asmInfo
 }
 
-task ReleaseOAuth -depends GenerateAssemblyInfo, CreatePackages, CompileSamples {
- 
- }
+task ReleaseOAuth -depends CompileMain, TestMain, CreatePackages, CompileSamples
+task CompileAll -depends CompileMain, TestMain, CompileSamples
 
