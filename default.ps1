@@ -108,7 +108,7 @@ task CompileMain -depends InstallDependentPackages, InitEnvironment, Init {
 	$assemblies  +=  dir $buildBase\newtonsoft.json.dll
 	$assemblies  +=  dir $buildBase\log4net.dll
 
-	& $ilMergeTool /lib:$baseDir /t:library /out:"$binariesDir\OAuth2Provider.dll" /targetplatform:$script:ilmergeTargetFramework /log:"$buildBase\MergeLog.txt" $assemblies
+	& $ilMergeTool /lib:$baseDir /t:library /out:"$binariesDir\OAuth2Provider.dll" /internalize /targetplatform:$script:ilmergeTargetFramework /log:"$buildBase\MergeLog.txt" $assemblies
 	$mergeLogContent = Get-Content "$buildBase\MergeLog.txt"
 	echo "------------------------------Merge Log-----------------------"
 	echo $mergeLogContent
