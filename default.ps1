@@ -113,7 +113,7 @@ task CompileMain -depends InstallDependentPackages, InitEnvironment, Init {
 	echo $mergeLogContent
  }
  
- task TestMain -depends CompileMain {
+task TestMain -depends CompileMain {
 
 	if((Test-Path -Path $buildBase\test-reports) -eq $false){
 		Create-Directory $buildBase\test-reports 
