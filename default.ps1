@@ -67,7 +67,7 @@ task InstallDependentPackages {
 	}
  }
  
-task InitEnvironment -depends DetectOperatingSystemArchitecture, GenerateAssemblyInfo {
+task InitEnvironment -depends DetectOperatingSystemArchitecture {
 
 	if($script:isEnvironmentInitialized -ne $true){
 		if ($TargetFramework -eq "net-4.0"){
@@ -194,5 +194,5 @@ using System.Runtime.CompilerServices;
 }
 
 task ReleaseOAuth -depends CompileMain, TestMain, CreatePackages, CompileSamples
-task CompileAll -depends CompileMain, TestMain, CompileSamples
+task CompileAll -depends GenerateAssemblyInfo, CompileMain, TestMain, CompileSamples
 
