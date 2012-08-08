@@ -6,6 +6,7 @@
 	$DownloadDependentPackages = $true
 	$UploadPackage = $false
 	$NugetKey = ""
+	$PackageVersion = $null
 }
 
 $baseDir  = resolve-path .
@@ -144,11 +145,13 @@ task PrepareRelease {
 }
  
 task CreatePackages -depends PrepareRelease  {
-
+	
 	if(($UploadPackage) -and ($NugetKey -eq "")){
 		throw "Could not find the NuGet access key Package Cannot be uploaded without access key"
 	}
-		
+	
+	$script:packageVersion = $PackageVersion
+			
 	import-module $toolsDir\NuGet\packit.psm1
 	Write-Output "Loading the module for packing.............."
 	$packit.push_to_nuget = $UploadPackage 
@@ -174,8 +177,8 @@ task CreatePackages -depends PrepareRelease  {
 	Write-Output "Build Number: $BuildNumber"
 	
 	$asmVersion = $ProductVersion + "." + $PatchVersion + "." + $BuildNumber 
-	$script:packageVersion = $asmVersion
-		
+	$PackageVersion = $asmVersion
+	
 	Write-Output "##teamcity[buildNumber '$asmVersion']"
 	
 		$asmInfo = "using System;
