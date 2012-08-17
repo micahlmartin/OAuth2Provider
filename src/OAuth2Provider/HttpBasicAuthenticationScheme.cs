@@ -11,7 +11,7 @@ namespace OAuth2Provider
         {
             try
             {
-                var header = (request.Headers["Authorization"] + "").Replace("Basic", "").Trim();
+                var header = ((request.Headers["Authorization"]).FirstOrDefaultSafe() + "").Replace("Basic", "").Trim();
                 var tokens = Encoding.ASCII.GetString(Convert.FromBase64String(header)).Split(new[] { ':' });
                 if (tokens.Length > 0)
                     Username = tokens[0];

@@ -140,6 +140,7 @@
     <Compile Include="Authorization\RefreshTokenRequestAuthorizerTest.cs" />
     <Compile Include="Authorization\ResourceRequestAuthorizerTest.cs" />
     <Compile Include="ConsumerImpl.cs" />
+    <Compile Include="HttpBasicAuthenticationTest.cs" />
     <Compile Include="IConsu.cs" />
     <Compile Include="Issuer\OAuthIssuerTest.cs" />
     <Compile Include="MockHelper.cs" />
