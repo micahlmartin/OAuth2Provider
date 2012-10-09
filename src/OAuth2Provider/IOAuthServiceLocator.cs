@@ -13,5 +13,6 @@ namespace OAuth2Provider
         IResourceOwnerRepository ResourceOwnerRepository { get; }
         IOAuthIssuer Issuer { get; }
         IConfiguration Configuration { get; }
+        IPasswordHasher PasswordHasher { get; }
     }
 }

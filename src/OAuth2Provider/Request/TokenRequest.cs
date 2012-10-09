@@ -46,7 +46,7 @@ namespace OAuth2Provider.Request
                     authorizer = new RefreshTokenRequestAuthorizer(ServiceLocator.ConsumerRepository, ServiceLocator.ResourceOwnerRepository, ServiceLocator.Issuer, ServiceLocator.Configuration);
                     break;
                 case OAuth2Provider.GrantType.Password:
-                    authorizer = new PasswordTokenRequestAuthorizer(ServiceLocator.ConsumerRepository, ServiceLocator.ResourceOwnerRepository, ServiceLocator.Issuer, ServiceLocator.Configuration);
+                    authorizer = new PasswordTokenRequestAuthorizer(ServiceLocator);
                     break;
                 case OAuth2Provider.GrantType.AuthorizationCode:
                     authorizer = new AuthorizationCodeAuthorizer(ServiceLocator.Issuer, ServiceLocator.Configuration);

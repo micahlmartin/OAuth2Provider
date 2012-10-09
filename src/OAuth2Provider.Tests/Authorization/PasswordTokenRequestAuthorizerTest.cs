@@ -15,6 +15,7 @@ namespace OAuth2Provider.Tests.Authorization
         public void WhenClientIdIsInvalid_ThenThrowsException()
         {
             var mocker = new AutoMoqer();
+            mocker.MockServiceLocator();
             mocker.GetMock<IOAuthRequest>().Setup(x => x.ContentType).Returns(ContentType.FormEncoded);
             mocker.GetMock<IOAuthRequest>().Setup(x => x.ClientId).Returns("");
             mocker.GetMock<IOAuthRequest>().Setup(x => x.ClientSecret).Returns("clientsecret");
@@ -42,6 +43,7 @@ namespace OAuth2Provider.Tests.Authorization
         public void WhenClientSecretIsInvalid_ThenThrowsException()
         {
             var mocker = new AutoMoqer();
+            mocker.MockServiceLocator();
             mocker.GetMock<IOAuthRequest>().Setup(x => x.ContentType).Returns(ContentType.FormEncoded);
             mocker.GetMock<IOAuthRequest>().Setup(x => x.ClientId).Returns("clientid");
             mocker.GetMock<IOAuthRequest>().Setup(x => x.Username).Returns("username");
@@ -68,6 +70,7 @@ namespace OAuth2Provider.Tests.Authorization
         public void WhenUsernameIsInvalid_ThenThrowsException()
         {
             var mocker = new AutoMoqer();
+            mocker.MockServiceLocator();
             mocker.GetMock<IOAuthRequest>().Setup(x => x.ContentType).Returns(ContentType.FormEncoded);
             mocker.GetMock<IOAuthRequest>().Setup(x => x.ClientId).Returns("clientid");
             mocker.GetMock<IOAuthRequest>().Setup(x => x.ClientSecret).Returns("clientsecret");
@@ -95,13 +98,14 @@ namespace OAuth2Provider.Tests.Authorization
         public void WhenPasswordIsInvalid_ThenThrowsException()
         {
             var mocker = new AutoMoqer();
+            mocker.MockServiceLocator();
             mocker.GetMock<IOAuthRequest>().Setup(x => x.ContentType).Returns(ContentType.FormEncoded);
             mocker.GetMock<IOAuthRequest>().Setup(x => x.ClientId).Returns("clientid");
             mocker.GetMock<IOAuthRequest>().Setup(x => x.ClientSecret).Returns("clientsecret");
             mocker.GetMock<IOAuthRequest>().Setup(x => x.Username).Returns("username");
             mocker.GetMock<IOAuthRequest>().Setup(x => x.GrantType).Returns(GrantType.Password);
             mocker.GetMock<IConsumerRepository>().Setup(x => x.GetByClientId("clientid")).Returns(new ConsumerImpl { ClientId = "clientid", Secret = "clientsecret" });
-            mocker.GetMock<IResourceOwnerRepository>().Setup(x => x.GetByUsername(1, "username")).Returns(new ResourceOwnerImpl { Username = "username", Password = "pass" });
+            mocker.GetMock<IResourceOwnerRepository>().Setup(x => x.GetByUsername(0, "username")).Returns(new ResourceOwnerImpl { Username = "username", Password = "pass" });
             mocker.GetMock<IOAuthRequest>().Setup(x => x.Password).Returns("password");
 
             var authorizer = mocker.Resolve<PasswordTokenRequestAuthorizer>();
@@ -122,6 +126,7 @@ namespace OAuth2Provider.Tests.Authorization
         public void WhenContentTypeIsInvalid_ThenThrowsException()
         {
             var mocker = new AutoMoqer();
+            mocker.MockServiceLocator();
             mocker.GetMock<IOAuthRequest>().Setup(x => x.ContentType).Returns(ContentType.Json);
             mocker.GetMock<IOAuthRequest>().Setup(x => x.ClientId).Returns("clientid");
             mocker.GetMock<IOAuthRequest>().Setup(x => x.ClientSecret).Returns("clientsecret");
@@ -149,6 +154,7 @@ namespace OAuth2Provider.Tests.Authorization
         public void EnsureApplicationIsApproved()
         {
             var mocker = new AutoMoqer();
+            mocker.MockServiceLocator();
             mocker.GetMock<IOAuthRequest>().Setup(x => x.ContentType).Returns(ContentType.FormEncoded);
             mocker.GetMock<IOAuthRequest>().Setup(x => x.ClientId).Returns("clientid");
             mocker.GetMock<IOAuthRequest>().Setup(x => x.ClientSecret).Returns("clientsecret");
@@ -156,6 +162,7 @@ namespace OAuth2Provider.Tests.Authorization
             mocker.GetMock<IOAuthRequest>().Setup(x => x.GrantType).Returns(GrantType.Password);
             mocker.GetMock<IConsumerRepository>().Setup(x => x.GetByClientId("clientid")).Returns(new ConsumerImpl { ConsumerId = 1, ClientId = "clientid", Secret = "clientsecret" });
             mocker.GetMock<IResourceOwnerRepository>().Setup(x => x.GetByUsername(1, "username")).Returns(new ResourceOwnerImpl { ResourceOwnerId = 2, Username = "username", Password = "password".ToHash() });
+            mocker.GetMock<IPasswordHasher>().Setup(x => x.CheckPassword("password", "password".ToHash())).Returns(true);
             mocker.GetMock<IOAuthRequest>().Setup(x => x.Password).Returns("password");
             mocker.SetInstance<IOAuthIssuer>(new OAuthIssuer());
 
@@ -170,6 +177,7 @@ namespace OAuth2Provider.Tests.Authorization
         public void ReturnsAuthorizedToken()
         {
             var mocker = new AutoMoqer();
+            mocker.MockServiceLocator();
             mocker.GetMock<IOAuthRequest>().Setup(x => x.ContentType).Returns(ContentType.FormEncoded);
             mocker.GetMock<IOAuthRequest>().Setup(x => x.ClientId).Returns("clientid");
             mocker.GetMock<IOAuthRequest>().Setup(x => x.ClientSecret).Returns("clientsecret");
@@ -177,9 +185,10 @@ namespace OAuth2Provider.Tests.Authorization
             mocker.GetMock<IOAuthRequest>().Setup(x => x.GrantType).Returns(GrantType.Password);
             mocker.GetMock<IConsumerRepository>().Setup(x => x.GetByClientId("clientid")).Returns(new ConsumerImpl { ConsumerId = 1, ClientId = "clientid", Secret = "clientsecret" });
             mocker.GetMock<IResourceOwnerRepository>().Setup(x => x.GetByUsername(1, "username")).Returns(new ResourceOwnerImpl { ResourceOwnerId = 2, Username = "username", Password = "password".ToHash() });
+            mocker.GetMock<IPasswordHasher>().Setup(x => x.CheckPassword("password", "password".ToHash())).Returns(true);
             mocker.GetMock<IOAuthRequest>().Setup(x => x.Password).Returns("password");
             mocker.GetMock<IConfiguration>().Setup(x => x.AccessTokenExpirationLength).Returns(3600);
-            mocker.SetInstance<IOAuthIssuer>(new OAuthIssuer());
+            mocker.GetMock<IOAuthServiceLocator>().Setup(x => x.Issuer).Returns(new OAuthIssuer());
 
             var authorizer = mocker.Resolve<PasswordTokenRequestAuthorizer>();
 

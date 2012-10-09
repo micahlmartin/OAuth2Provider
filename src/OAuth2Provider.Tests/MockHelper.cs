@@ -12,6 +12,7 @@ namespace OAuth2Provider.Tests
             mocker.GetMock<IOAuthServiceLocator>().Setup(x => x.Configuration).Returns(mocker.GetMock<IConfiguration>().Object);
             mocker.GetMock<IOAuthServiceLocator>().Setup(x => x.ConsumerRepository).Returns(mocker.GetMock<IConsumerRepository>().Object);
             mocker.GetMock<IOAuthServiceLocator>().Setup(x => x.ResourceOwnerRepository).Returns(mocker.GetMock<IResourceOwnerRepository>().Object);
+            mocker.GetMock<IOAuthServiceLocator>().Setup(x => x.PasswordHasher).Returns(mocker.GetMock<IPasswordHasher>().Object);
         }
     }
 }
