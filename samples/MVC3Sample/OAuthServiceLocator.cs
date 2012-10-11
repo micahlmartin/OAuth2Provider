@@ -14,6 +14,7 @@ namespace MVC3Sample
         private readonly IResourceOwnerRepository _resourceOwnerRepository = new ResourceOwnerRepository();
         private readonly IOAuthIssuer _oAuthIssuer = new OAuthIssuer();
         private readonly IConfiguration _configuration = new Configuration();
+        private readonly IPasswordHasher _passwordHasher = new MD5PasswordHasher();
 
         public IConsumerRepository ConsumerRepository
         {
@@ -33,6 +34,11 @@ namespace MVC3Sample
         public IConfiguration Configuration
         {
             get { return _configuration; }
+        }
+
+        public IPasswordHasher PasswordHasher
+        {
+            get { return _passwordHasher; }
         }
     }
 
@@ -119,6 +125,14 @@ namespace MVC3Sample
         public int AuthorizationTokenExpirationLength
         {
             get { return 30; }
+        }
+    }
+
+    public class MD5PasswordHasher : IPasswordHasher
+    {
+        public bool CheckPassword(string plaintext, string hashed)
+        {
+            return plaintext.ToHash() == hashed;
         }
     }
 

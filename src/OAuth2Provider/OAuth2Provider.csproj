@@ -76,6 +76,7 @@
     <Compile Include="IConfiguration.cs" />
     <Compile Include="IConsumer.cs" />
     <Compile Include="IOAuthMessage.cs" />
+    <Compile Include="IPasswordHasher.cs" />
     <Compile Include="Issuer\OAuthIssuer.cs" />
     <Compile Include="Issuer\TokenData.cs" />
     <Compile Include="Regexs.cs" />
