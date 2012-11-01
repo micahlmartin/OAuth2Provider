@@ -123,34 +123,6 @@ namespace OAuth2Provider.Tests.Authorization
         }
 
         [Test]
-        public void WhenContentTypeIsInvalid_ThenThrowsException()
-        {
-            var mocker = new AutoMoqer();
-            mocker.MockServiceLocator();
-            mocker.GetMock<IOAuthRequest>().Setup(x => x.ContentType).Returns(ContentType.Json);
-            mocker.GetMock<IOAuthRequest>().Setup(x => x.ClientId).Returns("clientid");
-            mocker.GetMock<IOAuthRequest>().Setup(x => x.ClientSecret).Returns("clientsecret");
-            mocker.GetMock<IOAuthRequest>().Setup(x => x.Username).Returns("username");
-            mocker.GetMock<IOAuthRequest>().Setup(x => x.GrantType).Returns(GrantType.Password);
-            mocker.GetMock<IConsumerRepository>().Setup(x => x.GetByClientId("clientid")).Returns(new ConsumerImpl { ClientId = "clientid", Secret = "clientsecret" });
-            mocker.GetMock<IResourceOwnerRepository>().Setup(x => x.GetByUsername(1, "username")).Returns(new ResourceOwnerImpl { Username = "username", Password = "password" });
-            mocker.GetMock<IOAuthRequest>().Setup(x => x.Password).Returns("password");
-
-            var authorizer = mocker.Resolve<PasswordTokenRequestAuthorizer>();
-
-            try
-            {
-                authorizer.Authorize(mocker.GetMock<IOAuthRequest>().Object);
-                Assert.Fail("Exception not thrown");
-            }
-            catch (OAuthException ex)
-            {
-                Assert.AreEqual(ErrorCode.InvalidRequest, ex.ErrorCode);
-                Assert.IsTrue(!string.IsNullOrWhiteSpace(ex.ErrorDescription));
-            }
-        }
-
-        [Test]
         public void EnsureApplicationIsApproved()
         {
             var mocker = new AutoMoqer();

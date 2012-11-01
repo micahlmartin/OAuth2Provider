@@ -205,5 +205,12 @@ namespace OAuth2Provider
         {
             return new HttpBasicAuthenticationScheme(request);
         }
+
+        public static bool IsFormEncoded(this IOAuthRequest request)
+        {
+            // Content-Type may or may not include the character encoding (e.g. charset=UTF-8)
+            var contentType = request.ContentType;
+            return !string.IsNullOrEmpty(contentType) && contentType.StartsWith(ContentType.FormEncoded, StringComparison.OrdinalIgnoreCase);
+        }
     }
 }

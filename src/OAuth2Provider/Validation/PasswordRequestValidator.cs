@@ -38,9 +38,8 @@ namespace OAuth2Provider.Validation
             if (string.IsNullOrWhiteSpace(clientSecret))
                 return new ValidationResult { ErrorCode = ErrorCode.InvalidRequest, ErrorDescription = "Parameter client_secret is missing" };
 
-            var contentType = request.ContentType;
-            if (contentType != ContentType.FormEncoded)
-                return new ValidationResult { ErrorCode = ErrorCode.InvalidRequest, ErrorDescription = "Content-Type header is missing or incorrect." };
+            if (!request.IsFormEncoded())
+                return new ValidationResult { ErrorCode = ErrorCode.InvalidRequest, ErrorDescription = "Content-Type must be application/x-www-form-urlencoded" };
 
             return new ValidationResult { Success = true };
         }
