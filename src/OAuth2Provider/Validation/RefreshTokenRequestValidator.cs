@@ -21,8 +21,8 @@ namespace OAuth2Provider.Validation
             if (grantType != GrantType.RefreshToken)
                 return new ValidationResult { ErrorCode = ErrorCode.InvalidGrant, ErrorDescription = "The specified grant_type is not supported" };
 
-            if (request.ContentType != ContentType.FormEncoded)
-                return new ValidationResult { ErrorCode = ErrorCode.InvalidRequest, ErrorDescription = "Content-Type header is missing or incorrect." };
+            if (!request.IsFormEncoded())
+                return new ValidationResult { ErrorCode = ErrorCode.InvalidRequest, ErrorDescription = "Content-Type must be application/x-www-form-urlencoded" };
 
             if (string.IsNullOrWhiteSpace(request.RefreshToken))
                 return new ValidationResult { ErrorCode = ErrorCode.InvalidRequest, ErrorDescription = "Parameter refresh_token is missing" };

@@ -29,9 +29,6 @@ namespace OAuth2Provider.Authorization
         {
             _logger.Debug("Authorizing refresh token request");
 
-            if (request.ContentType != ContentType.FormEncoded)
-                throw new OAuthException(ErrorCode.InvalidRequest, "Invalid content type.");
-
             //Make sure consumer is valid
             var consumer = _consumerRepository.GetByClientId(request.ClientId);
             if (consumer == null)
