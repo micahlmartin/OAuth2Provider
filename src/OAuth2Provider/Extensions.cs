@@ -64,12 +64,16 @@ namespace OAuth2Provider
         public static void SafeAdd<TKey, T>(this IDictionary<TKey, IList<T>> dictionary, TKey key, IList<T> items)
         {
             IList<T> existingItems = null;
-            dictionary.TryGetValue(key, out items);
+            dictionary.TryGetValue(key, out existingItems);
 
             if (existingItems == null)
+            {
                 existingItems = new List<T>();
-
-            existingItems.AddRange(items);
+                existingItems.AddRange(items);
+                dictionary[key] = existingItems;
+            }
+            else
+                existingItems.AddRange(items);
         }
 
         public static string ToQueryString(this NameValueCollection nvc)
