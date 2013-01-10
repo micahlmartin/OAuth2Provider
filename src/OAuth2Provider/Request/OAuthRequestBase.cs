@@ -7,6 +7,8 @@ using OAuth2Provider;
 
 namespace OAuth2Provider.Request
 {
+    using System.Linq;
+
     public abstract class OAuthRequestBase : IOAuthRequest
     {
         private readonly IRequest _request;
@@ -68,9 +70,9 @@ namespace OAuth2Provider.Request
                 if (!string.IsNullOrWhiteSpace(accessToken))
                     return accessToken;
 
-                var authHeader = _request.Headers.SafeGet(HeaderType.Authorization) + "";
-                if(authHeader.Contains("OAuth") || authHeader.Contains("Bearer"))
-                    accessToken = authHeader.Replace("OAuth ", "").Replace("Bearer ", "").Trim();
+                var authHeader = _request.Headers.SafeGet(HeaderType.Authorization).First() ?? string.Empty;
+                if (authHeader.Contains("OAuth") || authHeader.Contains("Bearer"))
+                    accessToken = authHeader.Replace("OAuth ", string.Empty).Replace("Bearer ", string.Empty).Trim();
 
                 return accessToken;
             }
