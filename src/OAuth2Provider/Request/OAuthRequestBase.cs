@@ -70,7 +70,7 @@ namespace OAuth2Provider.Request
                 if (!string.IsNullOrWhiteSpace(accessToken))
                     return accessToken;
 
-                var authHeader = _request.Headers.SafeGet(HeaderType.Authorization).First() ?? string.Empty;
+                var authHeader = _request.Headers.SafeGet(HeaderType.Authorization).FirstOrDefaultSafe() ?? string.Empty;
                 if (authHeader.Contains("OAuth") || authHeader.Contains("Bearer"))
                     accessToken = authHeader.Replace("OAuth ", string.Empty).Replace("Bearer ", string.Empty).Trim();
 
